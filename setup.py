@@ -7,21 +7,7 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
-    code_example = f.read()
-
-long_description = f"""
-# Library of darklab utility programms
-
-contains:
-
-## Scripts:
-
-A package built on top of argparse.
-intended usage to be a python version of makefile, for uniform command acceess to run tests/lints in dev env and CI
-
-code examples:
-{code_example}
-"""
+    long_description = f.read()
 
 setup(
     name='darklab_utils',

@@ -1,3 +1,14 @@
+# Library of darklab utility programms
+
+contains:
+
+## Scripts:
+
+A package built on top of argparse.
+intended usage to be a python version of makefile, for uniform command acceess to run tests/lints in dev env and CI
+
+## code example:
+
 ```py
 from types import SimpleNamespace
 
