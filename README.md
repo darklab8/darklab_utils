@@ -51,3 +51,6 @@ if __name__=="__main__":
 
     # run with `python scripts.py build`, `python scripts.py example --argument=123`
 ```
+
+## Link to Pypi
+https://pypi.org/project/darklab-utils/
