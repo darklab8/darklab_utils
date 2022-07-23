@@ -51,7 +51,18 @@ def registered_action(f):
     return wrapper
 
 
+class NullDataFactory(AbstractInputDataFactory):
+
+    @staticmethod
+    def register_cli_arguments(argpase_reader: ArgparseReader) -> ArgparseReader:
+        return argpase_reader
+
+    @staticmethod
+    def register_env_arguments(env_reader: EnvReader) -> EnvReader:
+        return env_reader
+
 class AbstractScripts(ShellMixin):
+    input_data_factory = NullDataFactory
 
     globals = SimpleNamespace()
     
