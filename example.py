@@ -18,15 +18,15 @@ class MyScripts(utils.AbstractScripts):
     input_data_factory = InputDataFactory
 
     @utils.registered_action
-    def build(self):
+    def env_example(self):
+        self.shell(f"echo {self.globals.env_argument2}")
+
+    @utils.registered_action
+    def cli_example(self):
         self.shell(f"echo {self.globals.cli_argument}")
 
     @utils.registered_action
-    def print(self):
-        self.shell(f"echo {self.globals.env_argument1}")
-
-    @utils.registered_action
-    def example(self):
+    def cli_extra_arg_example(self):
         args = self.globals.cli_reader \
             .add_argument("--argument", type=int, default=456) \
             .get_data()
@@ -35,4 +35,4 @@ class MyScripts(utils.AbstractScripts):
 if __name__=="__main__":
     MyScripts().process()
 
-    # run with `python scripts.py build`, `python scripts.py example --argument=123`
+    # run with `python scripts.py cli_example`, `python scripts.py cli_extra_arg_example --argument=123`

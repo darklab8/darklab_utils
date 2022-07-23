@@ -36,7 +36,7 @@ intended usage to be a python version of makefile, for uniform command acceess t
 ## Link to Pypi
 https://pypi.org/project/darklab-utils/
 """ 
-        with open("examples/scripts.py", "r") as code_example_file:
+        with open("example.py", "r") as code_example_file:
             code_example = code_example_file.read()
         with open("README.md", "w") as readme_file:
             readme_file.write(README_template.format(code=code_example))
