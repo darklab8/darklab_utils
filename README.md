@@ -1,3 +1,16 @@
+
+# Library of darklab utility programms
+
+contains:
+
+## Scripts:
+
+A package built on top of argparse.
+intended usage to be a python version of makefile, for uniform command acceess to run tests/lints in dev env and CI
+
+## code example:
+
+```py
 import darklab_utils as utils
 
 class InputDataFactory(utils.AbstractInputDataFactory):
@@ -36,3 +49,7 @@ if __name__=="__main__":
     MyScripts().process()
 
     # run with `python scripts.py build`, `python scripts.py example --argument=123`
+```
+
+## Link to Pypi
+https://pypi.org/project/darklab-utils/
