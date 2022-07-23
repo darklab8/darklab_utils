@@ -20,16 +20,16 @@ class MyScripts(utils.AbstractScripts):
     input_data_factory = InputDataFactory
 
     @utils.registered_action
-    def build(self, input_: SimpleNamespace):
-        self.shell(f"echo {input_.cli_argument}")
+    def build(self):
+        self.shell(f"echo {self.globals.cli_argument}")
 
     @utils.registered_action
-    def print(self, input_: SimpleNamespace):
-        self.shell(f"echo {input_.env_argument1}")
+    def print(self):
+        self.shell(f"echo {self.globals.env_argument1}")
 
     @utils.registered_action
-    def example(self, input_: SimpleNamespace):
-        args = input_.cli_reader \
+    def example(self):
+        args = self.globals.cli_reader \
             .add_argument("--argument", type=int, default=456) \
             .get_data()
         self.shell(f"echo debug_{args.argument}")

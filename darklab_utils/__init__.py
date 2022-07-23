@@ -72,13 +72,11 @@ class _SimpleNameSpaceWithDict(SimpleNamespace):
         pass
 
 class ArgparseWithAugmentedArgs(argparse.ArgumentParser):
-    def parse_args(self, *args, ignore_args, **kwargs) -> _SimpleNameSpaceWithDict:
-        args = super().parse_args(*args, **kwargs)
+    def parse_args(self, *args, **kwargs) -> _SimpleNameSpaceWithDict:
+        args, *_ = super().parse_known_args(*args, **kwargs)
 
         def get_as_dict() -> dict:
             data = copy(args.__dict__)
-            if ignore_args and "args" in data:
-                data.pop("args")
             if "get_as_dict" in data:
                 data.pop("get_as_dict")
             return data
@@ -96,13 +94,8 @@ class ArgparseReader:
         return copy_of_self
 
     def get_data(self, ignore_args=False) -> _SimpleNameSpaceWithDict:
-        args = self._parser.parse_args(ignore_args=ignore_args)
+        args = self._parser.parse_args()
         return args
-
-    def ignore_others(self) -> 'ArgparseReader':
-        copy_of_self = deepcopy(self)
-        copy_of_self._parser.add_argument('args', nargs=argparse.REMAINDER)
-        return copy_of_self # chain for easy data access
 
 class TestCliReader(unittest.TestCase):
 
@@ -228,7 +221,7 @@ class AbstractInputDataFactory(abc.ABC):
 
     def _get_cli_vars(self) -> SimpleNamespace:
         args = self.register_cli_arguments(self._argpase_reader) \
-            .ignore_others().get_data(ignore_args=True)
+            .get_data()
         data: dict = args.get_as_dict()
         return SimpleNamespace(**data)
 
@@ -254,6 +247,9 @@ def registered_action(f):
 
 
 class AbstractScripts(ShellMixin):
+
+    globals = SimpleNamespace()
+    
     def __init__(
         self,
     ):
@@ -267,4 +263,15 @@ class AbstractScripts(ShellMixin):
         input_: SimpleNamespace = input_data_factory(
             registered_actions=self.registered_actions
         ).get_input_data()
-        getattr(self, input_.action)(input_)
+        self.globals = input_
+        getattr(self, input_.action)()
+
+
+
+class TestScripts(unittest.TestCase):
+
+    def setUp(self) -> None:
+        pass
+
+    def test_get_good_cmd_command(self):
+        _shell_execute("echo 123")
