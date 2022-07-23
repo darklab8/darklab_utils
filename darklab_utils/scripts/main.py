@@ -26,7 +26,7 @@ class AbstractInputDataFactory(abc.ABC):
 
     def _get_cli_vars(self) -> SimpleNamespace:
         args = self.register_cli_arguments(self._argpase_reader) \
-            .get_data()
+            .get_data(ignore_others=True)
         data: dict = args.get_as_dict()
         return SimpleNamespace(**data)
 

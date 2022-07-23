@@ -19,11 +19,11 @@ class MyScripts(utils.AbstractScripts):
 
     @utils.registered_action
     def env_example(self):
-        self.shell(f"echo {self.globals.env_argument2}")
+        self.shell(f"echo debug_{self.globals.env_argument2}")
 
     @utils.registered_action
     def cli_example(self):
-        self.shell(f"echo {self.globals.cli_argument}")
+        self.shell(f"echo debug_{self.globals.cli_argument}")
 
     @utils.registered_action
     def cli_extra_arg_example(self):
